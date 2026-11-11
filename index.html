@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Thiệp mời Lễ Tốt Nghiệp</title>
+  <meta name="description" content="Trân trọng kính mời bạn đến dự Lễ Tốt Nghiệp của mình.">
+  <meta property="og:title" content="🎓 Thiệp mời Lễ Tốt Nghiệp">
+  <meta property="og:description" content="Mở thiệp để xem thời gian và địa điểm nhé!">
+  <meta name="theme-color" content="#2a52bd">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Hình dùng chung: nhũ vàng, lá nguyệt quế, mũ tốt nghiệp (tua rua đung đưa) -->
+  <svg class="sprite" aria-hidden="true">
+    <defs>
+      <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f6e3a6"/><stop offset=".5" stop-color="#d9b46c"/><stop offset="1" stop-color="#a07a35"/>
+      </linearGradient>
+      <linearGradient id="g-board" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2c3878"/><stop offset="1" stop-color="#0f1534"/>
+      </linearGradient>
+      <path id="leaf" d="M0 0Q8-4.6 16 0Q8 4.6 0 0Z" fill="url(#g-gold)"/>
+      <symbol id="i-cap" viewBox="0 0 120 100">
+        <path d="M30 42v22q30 14 60 0V42z" fill="#0c1130"/>
+        <path d="M4 36 60 58 116 36v3L60 61 4 39z" fill="#070a1c"/>
+        <path d="M60 14 116 36 60 58 4 36z" fill="url(#g-board)" stroke="#d9b46c" stroke-width=".8"/>
+        <path d="M60 36Q84 39 104 40" fill="none" stroke="#f6e3a6" stroke-width="1.6"/>
+        <g>
+          <path d="M104 40v27" stroke="#f6e3a6" stroke-width="1.6"/>
+          <path d="M100 66h8l4 22H96z" fill="url(#g-gold)"/>
+          <path d="M98 88v4m3-4v5m3-5v5m3-5v5m3-5v4" stroke="#d9b46c"/>
+          <animateTransform attributeName="transform" type="rotate" values="-9 104 40;9 104 40;-9 104 40" dur="3.2s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+        </g>
+        <circle cx="60" cy="36" r="3.2" fill="url(#g-gold)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ============ PHONG BÌ ============ -->
+  <section id="intro" aria-label="Phong bì thiệp mời">
+    <p class="intro-to">Thân gửi <span data-k="guest"></span></p>
+    <button class="envelope" id="envelope" aria-label="Mở thiệp mời">
+      <span class="env-back"></span>
+      <span class="env-letter">
+        <svg class="env-cap" viewBox="0 0 120 100" aria-hidden="true"><use href="#i-cap"/></svg>
+        <em>Graduation</em>
+        <small>Lời mời đặc biệt</small>
+      </span>
+      <span class="env-front"></span>
+      <span class="env-flap"></span>
+      <span class="seal"><span data-k="initials"></span></span>
+    </button>
+    <p class="intro-hint">Chạm vào con dấu để mở thiệp</p>
+  </section>
+
+  <main id="card">
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <p class="eyebrow reveal">Lễ Tốt Nghiệp · Class of <span data-k="classOf"></span></p>
+
+      <div class="portrait reveal" id="portrait">
+        <!-- vòng nguyệt quế: vẽ nhánh trái, lật gương thành nhánh phải -->
+        <svg class="laurel" viewBox="0 0 300 300" aria-hidden="true">
+          <g id="branch">
+            <path d="M144.1 262.8A113 113 0 0 1 54.2 90.1" fill="none" stroke="url(#g-gold)" stroke-width="1.6"/>
+            <use href="#leaf" transform="translate(136.2 262.2) rotate(139)"/><use href="#leaf" transform="translate(136.2 262.2) rotate(235)"/>
+            <use href="#leaf" transform="translate(113.2 256.8) rotate(151)"/><use href="#leaf" transform="translate(113.2 256.8) rotate(247)"/>
+            <use href="#leaf" transform="translate(91.8 246.9) rotate(163)"/><use href="#leaf" transform="translate(91.8 246.9) rotate(259)"/>
+            <use href="#leaf" transform="translate(72.9 232.6) rotate(175)"/><use href="#leaf" transform="translate(72.9 232.6) rotate(271)"/>
+            <use href="#leaf" transform="translate(57.4 214.8) rotate(187)"/><use href="#leaf" transform="translate(57.4 214.8) rotate(283)"/>
+            <use href="#leaf" transform="translate(46 194.2) rotate(199)"/><use href="#leaf" transform="translate(46 194.2) rotate(295)"/>
+            <use href="#leaf" transform="translate(39.1 171.6) rotate(211)"/><use href="#leaf" transform="translate(39.1 171.6) rotate(307)"/>
+            <use href="#leaf" transform="translate(37 148) rotate(223)"/><use href="#leaf" transform="translate(37 148) rotate(319)"/>
+            <use href="#leaf" transform="translate(39.9 124.6) rotate(235)"/><use href="#leaf" transform="translate(39.9 124.6) rotate(331)"/>
+            <use href="#leaf" transform="translate(47.6 102.2) rotate(247)"/><use href="#leaf" transform="translate(47.6 102.2) rotate(343)"/>
+            <use href="#leaf" transform="translate(54.2 90.1) rotate(302)"/>
+          </g>
+          <use href="#branch" transform="translate(300 0) scale(-1 1)"/>
+          <path d="M150 263l-8 13 4.5-.8 1.6 4.2zm0 0 8 13-4.5-.8-1.6 4.2z" fill="#a3283a"/>
+          <circle cx="150" cy="263" r="4.2" fill="url(#g-gold)"/>
+        </svg>
+        <svg class="ring" viewBox="0 0 300 300" aria-hidden="true">
+          <defs><path id="circle" d="M150,150 m-132,0 a132,132 0 1,1 264,0 a132,132 0 1,1 -264,0"/></defs>
+          <text><textPath href="#circle" id="ringText"></textPath></text>
+        </svg>
+        <div class="arch">
+          <img id="photo" alt="Ảnh chân dung tân cử nhân">
+        </div>
+        <svg class="mortarboard" viewBox="0 0 120 100" aria-hidden="true"><use href="#i-cap"/></svg>
+      </div>
+
+      <h1 class="name reveal" data-k="name"></h1>
+      <p class="degree reveal"><span data-k="degree"></span><br><span class="school" data-k="school"></span></p>
+      <div class="scroll-cue" aria-hidden="true"><span></span></div>
+    </header>
+
+    <!-- ============ LỜI MỜI ============ -->
+    <section class="invite">
+      <!-- thư mời trình bày như tấm bằng tốt nghiệp -->
+      <div class="diploma reveal">
+        <p class="dip-school" data-k="school"></p>
+        <h2 class="dip-title">Thư mời dự lễ tốt nghiệp</h2>
+        <p class="invite-to">Thân mời</p>
+        <p class="invite-guest" data-k="guest"></p>
+        <p class="invite-msg" data-k="message"></p>
+        <svg class="medal" viewBox="0 0 80 112" aria-hidden="true">
+          <path d="M29 50 18 108l11-7 8 10 7-56z" fill="#7d1b2a"/>
+          <path d="M51 50l11 58-11-7-8 10-7-56z" fill="#a3283a"/>
+          <circle cx="40" cy="40" r="33" fill="none" stroke="url(#g-gold)" stroke-width="7" pathLength="40" stroke-dasharray=".6 .4"/>
+          <circle cx="40" cy="40" r="28" fill="url(#g-gold)"/>
+          <circle cx="40" cy="40" r="23" fill="none" stroke="#a07a35" stroke-width=".8" stroke-dasharray="1.5 1.5"/>
+          <text x="40" y="34" text-anchor="middle" class="m-small">CLASS OF</text>
+          <text x="40" y="51" text-anchor="middle" class="m-year" data-k="classOf"></text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ THỜI GIAN ============ -->
+    <section class="when">
+      <h2 class="section-title reveal"><em>Save</em> the date</h2>
+      <div class="date-strip reveal">
+        <div class="ds-side"><span id="weekday"></span><span id="time"></span></div>
+        <div class="ds-day" id="day"></div>
+        <div class="ds-side"><span id="month"></span><span id="year"></span></div>
+      </div>
+      <div class="countdown reveal" id="countdown" aria-live="off">
+        <div><b id="cd-d">0</b><span>Ngày</span></div>
+        <div><b id="cd-h">0</b><span>Giờ</span></div>
+        <div><b id="cd-m">0</b><span>Phút</span></div>
+        <div><b id="cd-s">0</b><span>Giây</span></div>
+      </div>
+      <a class="btn ghost reveal" id="calBtn" target="_blank" rel="noopener">✦ Lưu vào lịch</a>
+    </section>
+
+    <!-- ============ ĐỊA ĐIỂM ============ -->
+    <section class="where">
+      <h2 class="section-title reveal"><em>Nơi</em> hẹn nhau</h2>
+      <figure class="school-photo reveal">
+        <div class="sp-zoom">
+          <img id="schoolPhoto" alt="Cổng trường và sân trường, nơi hẹn gặp">
+          <span class="pin-mark" id="pinMark"><i></i><b>Gặp nhau ở đây</b></span>
+        </div>
+      </figure>
+      <p class="venue reveal"><span data-k="venue"></span><b data-k="school"></b></p>
+      <p class="address reveal"><span class="pin" aria-hidden="true">⌖</span> <span data-k="address"></span></p>
+      <div class="map reveal"><iframe id="map" title="Bản đồ địa điểm" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <a class="btn reveal" id="dirBtn" target="_blank" rel="noopener">Chỉ đường đến trường →</a>
+    </section>
+
+    <!-- ============ LỊCH TRÌNH ============ -->
+    <section class="agenda">
+      <h2 class="section-title reveal"><em>Lịch</em> trình</h2>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <!-- ============ KẾT ============ -->
+    <section class="finale">
+      <p class="finale-quote reveal">“Bạn đến chung vui là món quà tốt nghiệp ý nghĩa nhất với mình rồi đó!”</p>
+      <div class="rsvp reveal">
+        <p class="rsvp-q">Bạn sẽ đến chung vui chứ?</p>
+        <button class="btn big rsvp-btn" id="rsvpBtn">💌 Mình sẽ tham dự</button>
+        <p class="rsvp-note">Đăng nhập Google để gửi xác nhận cho <span data-k="name"></span></p>
+        <p class="rsvp-msg" id="rsvpMsg" aria-live="polite"></p>
+      </div>
+      <button class="btn big reveal" id="tossBtn">🎓 Tung mũ chúc mừng</button>
+      <div class="contact reveal">
+        <a class="btn ghost" id="callBtn">☏ Gọi mình</a>
+        <a class="btn ghost" id="zaloBtn" target="_blank" rel="noopener">Nhắn Zalo</a>
+      </div>
+      <p class="signature reveal" data-k="name"></p>
+      <p class="credits" data-k="credits"></p>
+    </section>
+  </main>
+
+  <button class="music" id="musicBtn" aria-label="Bật/tắt nhạc" aria-pressed="false">
+    <span class="disc"></span>
+  </button>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
