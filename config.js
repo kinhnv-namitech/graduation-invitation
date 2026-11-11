@@ -38,6 +38,29 @@ window.CONFIG = {
   googleClientId: "473722698084-03bf8a8rrflgqbobum1gl2sc35ntjvol.apps.googleusercontent.com",                   // dạng 1234-abc.apps.googleusercontent.com
   rsvpUrl: "https://script.google.com/macros/s/AKfycbxrVXeGk9audIPbDUtuEQF-vc0Iz8duLFbpndIm4SXwC6BE7IHSze2yDf_JRE9EpJ4Z/exec",                          // dạng https://script.google.com/macros/s/…/exec
 
+  // Hộp quà rơi: bấm mở ra 1 món ngẫu nhiên (hết lượt mới lặp lại). Loại: code | tease | fortune | voucher
+  gifts: [
+    ["code", "if bạn.đến_dự_lễ():\n    vibe = \"đỉnh nóc kịch trần\"  # 🚀"],
+    ["code", "git commit -m \"ra trường rồi mấy ní ơi 🎓\"\ngit push origin tương-lai  # gét gô!"],
+    ["code", "model.fit(X=4_năm_đại_học, y=tấm_bằng)\n# accuracy: 100% — slay ✅\n# loss: vài sợi tóc 🥲"],
+    ["code", "assert bạn in danh_sách_khách_mời\n# ✅ passed — vắng bạn là toang á"],
+    ["code", "while còn_deadline:\n    cày()\n# và giờ thì… free rồi nha 😎"],
+    ["code", "SELECT * FROM kỷ_niệm\nWHERE có_bạn = TRUE;\n-- kết quả: quá trời quá đất 💛"],
+    ["code", "try:\n    tốt_nghiệp()\nexcept ChạyDeadlineError:\n    trà_sữa += 1  # keo lỳ suốt 4 năm 🧋"],
+    ["code", "import vibe\nvibe.check(ngày=\"21/11\")\n# → chill phết, đi liền 😌"],
+    ["tease", "Mở quà rồi là phải tới nha mấy ní, không là mình dỗi á 😤 Real đó!"],
+    ["tease", "Ủa alo? Bạn vừa trúng gói “chụp chung 10 tấm sống ảo” 📸 No refund nha!"],
+    ["tease", "Hết quà rồi đó… xạo á, mở tiếp đi bạn ui 🙈"],
+    ["tease", "Quà này chỉ unlock khi bạn có mặt ở cột cờ thôi, khum có ngoại lệ 😏"],
+    ["tease", "Không tới là bị mình seen không rep cả năm luôn á, nghĩ kĩ nha 😶"],
+    ["fortune", "AI do mình tự train phán: 99,9% bạn sẽ slay nhất trong ảnh tốt nghiệp của mình 📸✨"],
+    ["fortune", "Thống kê nhanh: 4 năm ≈ 1.461 ngày, n ly trà sữa 🧋, 1 tấm bằng — và bạn là biến quan trọng nhất trong model 💛"],
+    ["fortune", "Quẻ hôm nay: Đại cát! Ai tới chung vui là cả năm auto may mắn, đỉnh của chóp 🍀"],
+    ["voucher", "Voucher 1 cái ôm siêu to khổng lồ 🤗\nÁp dụng tại cột cờ · HSD: 21/11/2026"],
+    ["voucher", "Vé VIP: được đội mũ cử nhân của mình check-in 1 tấm sống ảo 🎓"],
+    ["voucher", "Phiếu nợ: mình nợ bạn 1 ly trà sữa full topping 🧋 Nhớ tới đòi nha ní!"],
+  ],
+
   credits:
     "Ảnh trường: trungydang / Wikimedia Commons (CC BY 3.0) · " +
     "Nhạc: E. Elgar — Pomp and Circumstance No. 1, U.S. Marine Band (public domain)",

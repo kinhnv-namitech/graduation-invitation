@@ -15,7 +15,7 @@ python3 -m http.server 8000   # then open http://localhost:8000/?to=Anh%20Minh
 Opening `index.html` directly over `file://` also works because the scripts are classic scripts, not modules. Use the `?to=` param to check the personalised guest name. Google sign-in is the exception: it only works over http(s) from an origin listed on the OAuth client, such as `http://localhost:8000`.
 
 ```sh
-node tests/rsvp-check.mjs     # the only test: RSVP button with Google and Apps Script mocked; needs macOS Google Chrome
+node tests/page-check.mjs     # the only test: RSVP button (Google and Apps Script mocked) and the falling gift dialog; needs macOS Google Chrome
 ```
 
 ## Architecture
@@ -39,6 +39,11 @@ node tests/rsvp-check.mjs     # the only test: RSVP button with Google and Apps 
   Two limits to keep in mind:
   - **The `.gs` file only runs in Google's editor.** Edits must be pasted into script.google.com and redeployed as a new version.
   - **The mail can't come from the guest's own Gmail.** That would need the restricted `gmail.send` scope.
+- **Falling gifts:**
+  - `giftLoop()` starts 4.5 s after the envelope opens and spawns `.gift` `<button>`s, at most 2 at a time. These are DOM elements, not canvas particles, because the canvas has `pointer-events: none`.
+  - Gifts fall with the CSS `fall` animation and are removed by a timeout. Under reduced motion they don't fall: they sit still, then disappear on the same timeout.
+  - Clicking one opens the `#surprise` dialog with the next item from a shuffled bag of `CONFIG.gifts`, given as `[type, text]` with type `code`, `tease`, `fortune` or `voucher`. The bag only repeats after every item has been shown.
+  - All copy is deliberately Gen Z slang (the owner asked for it). Keep that tone when adding gifts.
 - **Open sequence:** the `body` classes `locked` → `open` → `opened` drive it. `open` starts the envelope CSS animation. After 2100 ms, `opened` shows `#card`, unlocks scrolling, and starts observing `.reveal` elements. `#intro` is removed at 3400 ms. **The JS timeouts must match the transition durations in [style.css](style.css).**
 - **Reveal-on-scroll:** `.reveal` elements fade in through an IntersectionObserver, staggered by their index among `.reveal` siblings. Any element created dynamically must get the `reveal` class before the envelope opens.
 - **Shared SVG sprite:** the hidden `<svg class="sprite">` at the top of `index.html` defines `#g-gold`, `#leaf`, and the mortarboard `#i-cap`, which is reused through `<use>`. The cap's tassel swings with SMIL `<animateTransform>` because CSS can't animate inside `<use>`.

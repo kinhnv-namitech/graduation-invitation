@@ -368,7 +368,43 @@ main > section::before {
 .music[aria-pressed="true"] .disc { animation-play-state: running; }
 .music[aria-pressed="false"]::after { content: ""; position: absolute; width: 2px; height: 60%; background: var(--gold-hi); rotate: 45deg; border-radius: 2px; }
 
+/* --- Hộp quà rơi --- */
+.gift {
+  position: fixed; top: 10vh; z-index: 15; width: 60px; height: 60px; padding: 0; border: 0; background: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; animation: fall var(--d, 12s) linear forwards;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .4)) drop-shadow(0 0 14px rgba(255, 214, 120, .5));
+}
+.gift svg { display: block; width: 100%; height: 100%; overflow: visible; animation: giftsway 2.6s ease-in-out infinite alternate; }
+.gift .b { fill: var(--box); } .gift .l { fill: var(--lid); } .gift .r { fill: var(--rib); }
+.gift .g-lid { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .45s var(--ease); }
+.gift.open { animation-play-state: paused; opacity: 0; transition: opacity .35s .35s; }
+.gift.open .g-lid { transform: translate(8px, -24px) rotate(28deg); }
+.gift.hint::after { /* nhãn gợi ý cho hộp quà đầu tiên */
+  content: "Quà rơi nè, bấm thử đi! 👆"; position: absolute; top: 100%; left: 50%; translate: -50% 8px; white-space: nowrap;
+  padding: 4px 10px; border-radius: 999px; background: #fffaf0; color: #1f2547; font: 600 .72rem "Be Vietnam Pro", sans-serif;
+}
+.gift:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; border-radius: 12px; }
+
+.surprise { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 20px; background: rgba(8, 14, 40, .6); backdrop-filter: blur(4px); }
+.surprise[hidden] { display: none; }
+.s-card {
+  width: min(100%, 360px); padding: 26px 22px 22px; border-radius: 22px; text-align: center;
+  background: #fffaf0; color: #1f2547; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, .8); animation: cardin .45s var(--ease);
+}
+.s-tag { margin-bottom: 14px; font: 700 .78rem "Be Vietnam Pro", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #b3202f; }
+.s-text { font: italic 400 1.25rem/1.6 "Playfair Display", serif; white-space: pre-line; text-wrap: pretty; }
+.s-code { /* khung code kiểu cửa sổ editor */
+  position: relative; margin: 0; padding: 32px 16px 16px; border-radius: 12px; text-align: left;
+  background: #0f1534; color: #a5f3c4; font: 500 .86rem/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.s-code::before { content: ""; position: absolute; top: 12px; left: 14px; width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; box-shadow: 15px 0 #febc2e, 30px 0 #28c840; }
+.s-card .btn { margin-top: 18px; }
+
 /* ================= KEYFRAMES ================= */
+@keyframes fall { from { transform: translateY(calc(-10vh - 90px)); } to { transform: translateY(100vh); } }
+@keyframes giftsway { from { transform: translateX(-12px) rotate(-10deg); } to { transform: translateX(12px) rotate(10deg); } }
+@keyframes cardin { from { transform: scale(.85) translateY(20px); opacity: 0; } }
 @keyframes shimmer { to { background-position: -250% 0; } }
 @keyframes bob { 50% { transform: translateY(-10px) rotate(-.6deg); } }
 @keyframes breathe { 50% { opacity: .35; } }
@@ -386,4 +422,5 @@ main > section::before {
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .gift { animation: none !important; } /* hộp quà đứng yên thay vì rơi */
 }

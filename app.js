@@ -320,6 +320,50 @@
   $("#tossBtn").addEventListener("click", () => { toss(); Music.chime(); navigator.vibrate?.([30, 40, 30]); });
   $("#musicBtn").addEventListener("click", () => Music.toggle());
 
+  /* ---------- Hộp quà rơi: bấm mở ra 1 bất ngờ ngẫu nhiên từ CONFIG.gifts ---------- */
+  const GIFT_TAGS = { code: "💻 Code bí mật · dev mới hiểu", tease: "😜 Cà khịa nhẹ", fortune: "🔮 Tiên tri vũ trụ", voucher: "🎟️ Voucher xịn sò" };
+  const GIFT_COLORS = [["#c0394b", "#e0566a", "#f6e3a6"], ["#1f43a8", "#3b6be0", "#f6e3a6"], ["#d9b46c", "#f6e3a6", "#c0394b"]]; // thân, nắp, ruy băng
+  const GIFT_SVG = `<svg viewBox="0 0 64 64" aria-hidden="true">
+    <rect class="b" x="9" y="28" width="46" height="30" rx="4"/><rect class="r" x="28" y="28" width="8" height="30"/>
+    <g class="g-lid"><rect class="l" x="5" y="19" width="54" height="11" rx="3"/><rect class="r" x="28" y="19" width="8" height="11"/>
+    <path class="r" d="M32 19c-5-10-17-9-13-1 2 3 8 3 13 1zm0 0c5-10 17-9 13-1-2 3-8 3-13 1z"/></g></svg>`;
+  const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  let bag = [], hinted = false;
+  const nextGift = () => (bag.length ? bag : (bag = shuffle([...C.gifts]))).pop(); // mở hết lượt mới lặp lại
+
+  const showSurprise = ([type, text]) => {
+    $("#sTag").textContent = GIFT_TAGS[type] || "🎁 Quà bí mật";
+    const el = document.createElement(type === "code" ? "pre" : "p");
+    el.className = type === "code" ? "s-code" : "s-text"; el.textContent = text;
+    $("#sBody").replaceChildren(el);
+    $("#surprise").hidden = false; $("#sClose").focus();
+  };
+  const closeSurprise = () => { $("#surprise").hidden = true; };
+  $("#sClose").addEventListener("click", closeSurprise);
+  $("#surprise").addEventListener("click", (e) => e.target.id === "surprise" && closeSurprise());
+  addEventListener("keydown", (e) => e.key === "Escape" && closeSurprise());
+
+  const spawnGift = () => {
+    if (document.hidden || !$("#surprise").hidden || document.querySelectorAll(".gift:not(.open)").length >= 2) return;
+    const [box, lid, rib] = GIFT_COLORS[(Math.random() * GIFT_COLORS.length) | 0], dur = rnd(10, 14);
+    const g = document.createElement("button");
+    g.className = "gift" + (hinted ? "" : " hint"); hinted = true;
+    g.setAttribute("aria-label", "Mở hộp quà bí mật");
+    g.style.cssText = `left:${rnd(6, 80)}vw;--d:${dur}s;--box:${box};--lid:${lid};--rib:${rib}`;
+    g.innerHTML = GIFT_SVG;
+    g.addEventListener("click", () => {
+      g.classList.add("open"); // dừng rơi, bật nắp, mờ dần
+      const r = g.getBoundingClientRect();
+      burst(r.left + r.width / 2, r.top + r.height / 2, 90); Music.chime();
+      setTimeout(() => g.remove(), 800);
+      showSurprise(nextGift());
+    }, { once: true });
+    document.body.append(g);
+    setTimeout(() => g.classList.contains("open") || g.remove(), dur * 1000); // rơi khỏi màn hình thì dọn
+  };
+  const giftLoop = () => { spawnGift(); setTimeout(giftLoop, rnd(9000, 16000)); };
+  if (C.gifts?.length) $("#envelope").addEventListener("click", () => setTimeout(giftLoop, 4500), { once: true });
+
   /* ---------- Xác nhận tham dự: đăng nhập Google → Apps Script (apps-script/rsvp.gs) gửi mail cho chủ thiệp ---------- */
   const rsvpBtn = $("#rsvpBtn"), say = (t) => ($("#rsvpMsg").textContent = t);
   const confirmed = (name) => {

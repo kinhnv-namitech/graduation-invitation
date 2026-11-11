@@ -1,5 +1,5 @@
-// Kiểm tra nút "Mình sẽ tham dự" với Google + Apps Script giả lập, qua Chrome headless (CDP).
-// Chạy: node tests/rsvp-check.mjs   (cần Google Chrome trên macOS)
+// Kiểm tra nút "Mình sẽ tham dự" (Google + Apps Script giả lập) và hộp quà rơi, qua Chrome headless (CDP).
+// Chạy: node tests/page-check.mjs   (cần Google Chrome trên macOS)
 import { spawn } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -52,8 +52,17 @@ try {
   await send("Page.reload"); await sleep(1500); s = await state();
   assert.equal(s.dis, true); assert.match(s.msg, /Cảm ơn Lan Anh Google/);
 
+  // 5. hộp quà: mở thiệp → hộp đầu tiên rơi kèm nhãn gợi ý → bấm → hiện quà bí mật → Esc đóng
+  await ev("document.querySelector('#envelope').click()"); await sleep(5300);
+  assert.equal(await ev("document.querySelectorAll('.gift.hint').length"), 1);
+  await ev("document.querySelector('.gift').click()"); await sleep(150);
+  const gift = await ev(`({ hidden: document.querySelector('#surprise').hidden, tag: document.querySelector('#sTag').textContent, body: document.querySelector('#sBody').textContent })`);
+  assert.equal(gift.hidden, false); assert.match(gift.tag, /Code|Cà khịa|Tiên tri|Voucher/); assert.ok(gift.body.length > 10);
+  await ev("dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))");
+  assert.equal(await ev("document.querySelector('#surprise').hidden"), true);
+
   assert.deepEqual(errors, []);
-  console.log("rsvp-check: 4/4 pass");
+  console.log("page-check: 5/5 pass");
 } finally {
   ws.close(); chrome.kill();
 }
