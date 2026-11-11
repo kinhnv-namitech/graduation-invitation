@@ -17,7 +17,7 @@
       → copy "Web app URL" (…/exec) dán vào rsvpUrl trong config.js
    Sửa code sau này: Deploy → Manage deployments → Edit → Version: New version (giữ nguyên URL).
    ========================================================= */
-const CLIENT_ID = "DAN_CLIENT_ID_VAO_DAY.apps.googleusercontent.com";
+const CLIENT_ID = "473722698084-03bf8a8rrflgqbobum1gl2sc35ntjvol.apps.googleusercontent.com";
 const OWNER_EMAIL = Session.getEffectiveUser().getEmail(); // mail về tài khoản đã Deploy; muốn email khác thì ghi thẳng vào đây
 
 function doPost(e) {

@@ -40,8 +40,8 @@ window.CONFIG = {
 
   // Nút "Mình sẽ tham dự": khách đăng nhập Google → mail xác nhận về hộp thư của bạn.
   // Cách lấy 2 giá trị này: xem đầu file apps-script/rsvp.gs. Để trống → nút báo khách nhắn Zalo.
-  googleClientId: "",                   // dạng 1234-abc.apps.googleusercontent.com
-  rsvpUrl: "",                          // dạng https://script.google.com/macros/s/…/exec
+  googleClientId: "473722698084-03bf8a8rrflgqbobum1gl2sc35ntjvol.apps.googleusercontent.com",                   // dạng 1234-abc.apps.googleusercontent.com
+  rsvpUrl: "https://script.google.com/macros/s/AKfycbxrVXeGk9audIPbDUtuEQF-vc0Iz8duLFbpndIm4SXwC6BE7IHSze2yDf_JRE9EpJ4Z/exec",                          // dạng https://script.google.com/macros/s/…/exec
 
   credits:
     "Ảnh trường: trungydang / Wikimedia Commons (CC BY 3.0) · " +
