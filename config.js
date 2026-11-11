@@ -13,9 +13,9 @@ window.CONFIG = {
   school: "Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
   classOf: "2026",
 
-  // Giờ Việt Nam (+07:00) — sáng Thứ Bảy 21/11/2026
-  start: "2026-11-21T08:00:00+07:00",
-  end:   "2026-11-21T11:00:00+07:00",
+  // Giờ Việt Nam (+07:00) — gặp nhau sáng Thứ Bảy 21/11/2026, 10:30–12:00
+  start: "2026-11-21T10:30:00+07:00",
+  end:   "2026-11-21T12:00:00+07:00",
 
   venue: "Cột cờ giữa sân trường",
   address: "227 Nguyễn Văn Cừ, P. Chợ Quán (Q.5 cũ), TP. Hồ Chí Minh",
@@ -31,12 +31,7 @@ window.CONFIG = {
     "mình đã chính thức tốt nghiệp. Ngày vui sẽ trọn vẹn hơn nhiều nếu có bạn ở bên — " +
     "ghé chung vui và chụp với mình vài tấm ảnh thật xinh nha!",
 
-  schedule: [
-    ["08:00", "Lễ trao bằng tốt nghiệp"],
-    ["10:00", "Chụp ảnh lưu niệm"],
-  ],
-
-  phone: "0908014240",                  // nút gọi + Zalo
+  phone: "0908014240",                  // hiện số + nút sao chép, gọi, Zalo
 
   // Nút "Mình sẽ tham dự": khách đăng nhập Google → mail xác nhận về hộp thư của bạn.
   // Cách lấy 2 giá trị này: xem đầu file apps-script/rsvp.gs. Để trống → nút báo khách nhắn Zalo.

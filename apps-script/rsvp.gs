@@ -31,9 +31,8 @@ function doPost(e) {
     if (!guest.email_verified) throw new Error("Email Google chưa được xác minh");
     const name = guest.name || guest.email;
 
-    const seen = PropertiesService.getScriptProperties();
-    if (seen.getProperty(guest.email)) return json({ ok: true, name, again: true }); // bấm lại → không gửi trùng mail
-
+    // Không lưu gì trên máy chủ (thiệp đã hứa với khách) — chỉ gửi 1 mail.
+    // Chống bấm trùng do thiệp tự nhớ trên máy khách (localStorage).
     MailApp.sendEmail({
       to: OWNER_EMAIL,
       replyTo: guest.email,
@@ -50,7 +49,6 @@ function doPost(e) {
         "Bấm Trả lời để nhắn lại trực tiếp cho " + name + ".",
       ].join("\n"),
     });
-    seen.setProperty(guest.email, new Date().toISOString());
     return json({ ok: true, name });
   } catch (err) {
     return json({ ok: false, error: String((err && err.message) || err) });

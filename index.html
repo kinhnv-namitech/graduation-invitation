@@ -131,6 +131,7 @@
         <div class="ds-day" id="day"></div>
         <div class="ds-side"><span id="month"></span><span id="year"></span></div>
       </div>
+      <p class="ds-time reveal">⏰ <span id="timeRange"></span></p>
       <div class="countdown reveal" id="countdown" aria-live="off">
         <div><b id="cd-d">0</b><span>Ngày</span></div>
         <div><b id="cd-h">0</b><span>Giờ</span></div>
@@ -158,11 +159,6 @@
       <a class="btn reveal" id="dirBtn" target="_blank" rel="noopener">Chỉ đường đến trường →</a>
     </section>
 
-    <!-- ============ LỊCH TRÌNH ============ -->
-    <section class="agenda">
-      <h2 class="section-title reveal"><em>Lịch</em> trình</h2>
-      <ol class="timeline" id="timeline"></ol>
-    </section>
 
     <!-- ============ KẾT ============ -->
     <section class="finale">
@@ -172,17 +168,22 @@
         <div class="cta-row"><span class="hand" aria-hidden="true">👉</span><button class="btn big rsvp-btn" id="rsvpBtn">💌 Mình sẽ tham dự</button></div>
         <p class="rsvp-msg" id="rsvpMsg" aria-live="polite"></p>
         <div class="cta-note">
-          <p class="cta-title">🤔 Đăng nhập Google có “nguy hiểm” không ta?</p>
-          <p>Yên tâm 100% nha! 🤗 Google chỉ cho mình biết <b>tên, email và ảnh đại diện</b> của bạn — để mình biết ai sẽ tới chung vui thôi.</p>
+          <p class="cta-title">🤔 Bấm xác nhận có “nguy hiểm” không ta?</p>
+          <p>Không đâu nè! 🤗 Bạn <b>chỉ cần bấm nút</b> rồi chọn tài khoản Google — <b>không phải điền bất kỳ thông tin cá nhân nào</b> hết.</p>
           <ul>
-            <li>🙈 Không đọc mail, không xem ảnh, không biết mật khẩu</li>
-            <li>🔒 Bạn đăng nhập ngay trên trang của chính Google, mình không đụng vào được</li>
-            <li>💌 Bấm xong mình nhận đúng 1 lá thư “có người tới nè!” — hết!</li>
+            <li>🙅 Mình không lưu giữ thông tin nào của bạn, cũng chẳng có đường link lạ hay nguy hiểm nào đâu</li>
+            <li>🔒 Đăng nhập diễn ra ngay trên trang của chính Google — mình không thấy mật khẩu, không đọc mail của bạn</li>
+            <li>💌 Bấm xong, mình chỉ nhận đúng 1 email báo bạn sẽ tới (kèm tên &amp; email để mình nhắn lại cảm ơn)</li>
           </ul>
-          <p class="cta-joke">Mình chỉ hỏi tên thôi, không hỏi số dư tài khoản đâu 😆</p>
+          <p class="cta-joke">Chỉ một cú bấm để cho mình biết bạn có sẵn lòng đến chia vui cùng mình không thôi đó 🥰</p>
         </div>
       </div>
       <button class="btn big reveal" id="tossBtn">🎓 Tung mũ chúc mừng</button>
+      <div class="phone-card reveal">
+        <span class="phone-label">Số điện thoại · Zalo của mình</span>
+        <b class="phone-num" id="phoneNum"></b>
+        <button class="btn ghost small" id="copyBtn">📋 Sao chép số</button>
+      </div>
       <div class="contact reveal">
         <a class="btn ghost" id="callBtn">☏ Gọi mình</a>
         <a class="btn ghost" id="zaloBtn" target="_blank" rel="noopener">Nhắn Zalo</a>

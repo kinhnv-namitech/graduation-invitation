@@ -41,7 +41,9 @@
   const vn = new Date(+start + 7 * 36e5); // ponytail: cố định UTC+7, đổi nếu tổ chức ở múi giờ khác
   const WD = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
   $("#weekday").textContent = WD[vn.getUTCDay()];
-  $("#time").textContent = `${pad(vn.getUTCHours())}:${pad(vn.getUTCMinutes())}`;
+  const hm = (d) => { const v = new Date(+d + 7 * 36e5); return `${pad(v.getUTCHours())}:${pad(v.getUTCMinutes())}`; };
+  $("#time").textContent = vn.getUTCHours() < 12 ? "Sáng" : vn.getUTCHours() < 18 ? "Chiều" : "Tối";
+  $("#timeRange").textContent = `${hm(start)} – ${hm(end)}`;
   $("#day").textContent = pad(vn.getUTCDate());
   $("#month").textContent = "Tháng " + (vn.getUTCMonth() + 1);
   $("#year").textContent = vn.getUTCFullYear();
@@ -73,16 +75,14 @@
   $("#dirBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
 
   const phone = String(C.phone || "").replace(/\D/g, "");
-  if (phone) { $("#callBtn").href = "tel:" + phone; $("#zaloBtn").href = "https://zalo.me/" + phone; }
-  else $(".contact").remove();
-
-  const tl = $("#timeline");
-  (C.schedule || []).forEach(([t, label]) => {
-    const li = document.createElement("li"), time = document.createElement("time"), span = document.createElement("span");
-    li.className = "reveal"; time.textContent = t; span.textContent = label;
-    li.append(time, span); tl.append(li);
-  });
-  if (!tl.children.length) tl.closest("section").remove();
+  if (phone) {
+    $("#callBtn").href = "tel:" + phone; $("#zaloBtn").href = "https://zalo.me/" + phone;
+    $("#phoneNum").textContent = phone.replace(/(\d{4})(\d{3})(\d+)/, "$1 $2 $3"); // 0908 014 240
+    $("#copyBtn").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(phone); $("#copyBtn").textContent = "✓ Đã chép số"; }
+      catch { getSelection().selectAllChildren($("#phoneNum")); } // không có clipboard (http/file) → bôi đen sẵn để tự chép
+    });
+  } else { $(".contact").remove(); $(".phone-card").remove(); }
 
   /* ---------- Không gian lễ hội: đốm sáng bokeh, kim tuyến, pháo giấy rơi, mũ ---------- */
   const cv = $("#sky"), ctx = cv.getContext("2d");

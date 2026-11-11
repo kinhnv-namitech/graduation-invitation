@@ -20,7 +20,7 @@ node tests/rsvp-check.mjs     # the only test: RSVP button with Google and Apps 
 
 ## Architecture
 
-- **[config.js](config.js)** is the only file the owner is meant to edit. It sets `window.CONFIG` (name, degree, school, ISO `start`/`end` with `+07:00`, venue/address/`mapQuery`, asset paths, `schoolPin` = `[x%, y%]` of the meeting point on the school photo, `schedule` as `[time, label]` pairs, `phone`, `credits`). It loads before [app.js](app.js). New user-facing content belongs here, not hard-coded in HTML.
+- **[config.js](config.js)** is the only file the owner is meant to edit. It sets `window.CONFIG` (name, degree, school, ISO `start`/`end` with `+07:00`, venue/address/`mapQuery`, asset paths, `schoolPin` = `[x%, y%]` of the meeting point on the school photo, `phone` (shown large with a copy button, plus call/Zalo links), `googleClientId`/`rsvpUrl`, `credits`). The meeting time pill (`#timeRange`) shows `start`–`end`. It loads before [app.js](app.js). New user-facing content belongs here, not hard-coded in HTML.
 - **[app.js](app.js)** is one IIFE that does everything:
   - **Data binding:** every `[data-k="key"]` element gets `textContent` from `{...CONFIG, guest}`. `guest` comes from `?to=` and is cut to 60 characters. Without `?to=` the invite is generic: `guest` is empty and every `[data-k="guest"]` element is removed, leaving no "bạn" placeholder. Keep using `textContent` (never `innerHTML`), because `?to=` is attacker-controlled.
   - **Dates:** the display is hard-wired to UTC+7 by shifting `start` and reading `getUTC*`. The countdown, the Google Calendar link (`gcal()`), and the Maps embed and directions URLs are all derived from CONFIG.
@@ -33,14 +33,14 @@ node tests/rsvp-check.mjs     # the only test: RSVP button with Google and Apps 
   1. When `CONFIG.googleClientId` and `CONFIG.rsvpUrl` are both set, `app.js` lazy-loads Google Identity Services.
   2. The button click calls `initTokenClient(...).requestAccessToken()` synchronously, so Safari doesn't block the popup. It asks only for `openid email profile`, which need no Google verification.
   3. The access token is POSTed as a `text/plain` body (avoiding a CORS preflight) to the Apps Script web app in [apps-script/rsvp.gs](apps-script/rsvp.gs).
-  4. The script checks the token's `aud` against its own `CLIENT_ID`, fetches userinfo, and emails the deploying account through `MailApp`. The guest's name is the sender name and their address is the reply-to. Script properties prevent duplicate emails per guest.
+  4. The script checks the token's `aud` against its own `CLIENT_ID`, fetches userinfo, and emails the deploying account through `MailApp`. The guest's name is the sender name and their address is the reply-to. **Nothing is stored server-side.** The RSVP note on the page promises guests this, so don't add Script Properties or Sheets logging without also changing that copy. Only the client's `localStorage` guards against double clicks.
   5. On success, the page saves `localStorage.rsvp` so the confirmed state survives a reload.
 
   Two limits to keep in mind:
   - **The `.gs` file only runs in Google's editor.** Edits must be pasted into script.google.com and redeployed as a new version.
   - **The mail can't come from the guest's own Gmail.** That would need the restricted `gmail.send` scope.
 - **Open sequence:** the `body` classes `locked` → `open` → `opened` drive it. `open` starts the envelope CSS animation. After 2100 ms, `opened` shows `#card`, unlocks scrolling, and starts observing `.reveal` elements. `#intro` is removed at 3400 ms. **The JS timeouts must match the transition durations in [style.css](style.css).**
-- **Reveal-on-scroll:** `.reveal` elements fade in through an IntersectionObserver, staggered by their index among `.reveal` siblings. Elements created dynamically, such as timeline `<li>`s, must get the `reveal` class before the envelope opens.
+- **Reveal-on-scroll:** `.reveal` elements fade in through an IntersectionObserver, staggered by their index among `.reveal` siblings. Any element created dynamically must get the `reveal` class before the envelope opens.
 - **Shared SVG sprite:** the hidden `<svg class="sprite">` at the top of `index.html` defines `#g-gold`, `#leaf`, and the mortarboard `#i-cap`, which is reused through `<use>`. The cap's tassel swings with SMIL `<animateTransform>` because CSS can't animate inside `<use>`.
 - **Reduced motion:** `prefers-reduced-motion` turns off the animation loop, pointer sparkles, and open delays. It also pauses SMIL through `pauseAnimations()`, since the CSS media query doesn't stop SMIL. Keep this path working when adding effects.
 

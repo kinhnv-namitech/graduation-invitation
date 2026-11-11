@@ -236,6 +236,11 @@ main > section::before {
   font-size: .78rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
 }
 .ds-side span + span { color: var(--gold-hi); }
+.ds-time { /* giờ gặp — thông tin quan trọng nên tách thành ô riêng */
+  width: fit-content; margin: 24px auto 0; padding: 8px 22px; border-radius: 999px;
+  border: 1px solid var(--gold); background: rgba(13, 28, 82, .5); color: var(--gold-hi);
+  font: 600 1.2rem "Be Vietnam Pro", sans-serif; letter-spacing: .06em; font-variant-numeric: tabular-nums;
+}
 .ds-day { font: 700 clamp(4.5rem, 22vw, 6.5rem)/1 "Playfair Display", serif; }
 
 .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 44px 0 30px; }
@@ -281,16 +286,6 @@ main > section::before {
 .map { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 26px; }
 .map iframe { display: block; width: 100%; height: 260px; border: 0; filter: invert(.9) hue-rotate(180deg) saturate(.7) contrast(.9); }
 
-/* --- Lịch trình --- */
-.timeline { list-style: none; padding: 0; width: min(100%, 360px); margin: 0 auto; position: relative; text-align: left; }
-.timeline::before { content: ""; position: absolute; left: 76px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(var(--gold), var(--line), transparent); }
-.timeline li { display: grid; grid-template-columns: 60px 1fr; gap: 34px; padding: 12px 0; position: relative; }
-.timeline li::before {
-  content: ""; position: absolute; left: 72px; top: 21px; width: 9px; height: 9px; border-radius: 50%;
-  background: var(--gold-hi); box-shadow: 0 0 0 4px rgba(217, 180, 108, .2), 0 0 16px var(--gold);
-}
-.timeline time { font: 700 1.1rem "Playfair Display", serif; color: var(--gold-hi); text-align: right; }
-.timeline span { font-size: 1rem; padding-top: 2px; }
 
 /* --- Kết --- */
 .finale-quote { font: italic 400 clamp(1.4rem, 6vw, 1.9rem)/1.5 "Playfair Display", serif; margin-bottom: 40px; text-wrap: balance; }
@@ -323,6 +318,13 @@ main > section::before {
 .cta-joke { font-style: italic; color: #6a5530; }
 .rsvp-msg:empty { display: none; }
 .rsvp-msg { max-width: 34ch; font-weight: 500; color: var(--cream); text-wrap: balance; }
+.phone-card { display: grid; justify-items: center; gap: 4px; margin-top: 34px; }
+.phone-label { font-size: .7rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-hi); }
+.phone-num { /* số to, chạm là bôi đen cả số để chép / lưu danh bạ */
+  font: 700 clamp(2.1rem, 10vw, 2.7rem)/1.25 "Playfair Display", serif; letter-spacing: .03em;
+  color: var(--cream); font-variant-numeric: tabular-nums; user-select: all; -webkit-user-select: all;
+}
+.btn.small { margin-top: 6px; padding: 8px 18px; font-size: .82rem; }
 .contact { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 26px 0 56px; }
 .signature { font: 3.4rem/1.3 "Great Vibes", cursive; }
 .credits { margin-top: 44px; font-size: .62rem; line-height: 1.7; color: rgba(169, 176, 204, .6); text-wrap: balance; }
