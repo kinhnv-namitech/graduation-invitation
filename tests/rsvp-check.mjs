@@ -31,8 +31,8 @@ try {
   await send("Runtime.enable"); await send("Page.enable");
   await send("Page.navigate", { url }); await sleep(1500);
 
-  // 1. chưa cấu hình → báo nhắn Zalo
-  await ev("document.querySelector('#rsvpBtn').click()");
+  // 1. chưa cấu hình → báo nhắn Zalo (xoá cấu hình thật trong config.js cho bước này)
+  await ev("CONFIG.googleClientId = ''; CONFIG.rsvpUrl = ''; document.querySelector('#rsvpBtn').click()");
   let s = await state(); assert.match(s.msg, /chưa được cài đặt/); assert.equal(s.dis, false);
 
   // 2. Apps Script báo lỗi → nút bấm lại được

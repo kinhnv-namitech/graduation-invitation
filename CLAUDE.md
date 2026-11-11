@@ -22,7 +22,7 @@ node tests/rsvp-check.mjs     # the only test: RSVP button with Google and Apps 
 
 - **[config.js](config.js)** is the only file the owner is meant to edit. It sets `window.CONFIG` (name, degree, school, ISO `start`/`end` with `+07:00`, venue/address/`mapQuery`, asset paths, `schoolPin` = `[x%, y%]` of the meeting point on the school photo, `schedule` as `[time, label]` pairs, `phone`, `credits`). It loads before [app.js](app.js). New user-facing content belongs here, not hard-coded in HTML.
 - **[app.js](app.js)** is one IIFE that does everything:
-  - **Data binding:** every `[data-k="key"]` element gets `textContent` from `{...CONFIG, guest}`. `guest` comes from `?to=` and is cut to 60 characters. Keep using `textContent` (never `innerHTML`), because `?to=` is attacker-controlled.
+  - **Data binding:** every `[data-k="key"]` element gets `textContent` from `{...CONFIG, guest}`. `guest` comes from `?to=` and is cut to 60 characters. Without `?to=` the invite is generic: `guest` is empty and every `[data-k="guest"]` element is removed, leaving no "bạn" placeholder. Keep using `textContent` (never `innerHTML`), because `?to=` is attacker-controlled.
   - **Dates:** the display is hard-wired to UTC+7 by shifting `start` and reading `getUTC*`. The countdown, the Google Calendar link (`gcal()`), and the Maps embed and directions URLs are all derived from CONFIG.
   - **Missing images:** if `assets/me.jpg` or `assets/school.jpg` is missing or fails to load, `setImg()` swaps in an inline SVG placeholder. The owner supplies `me.jpg`.
   - **Bundled assets:** `assets/school.jpg` is a Wikimedia Commons photo under CC BY 3.0, so `CONFIG.credits` must keep its attribution. `assets/music.mp3` is a public-domain US Marine Band recording.

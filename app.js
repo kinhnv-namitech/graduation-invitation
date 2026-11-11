@@ -2,7 +2,7 @@
   const C = window.CONFIG;
   const $ = (s) => document.querySelector(s);
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const guest = new URLSearchParams(location.search).get("to")?.trim().slice(0, 60) || "bạn";
+  const guest = new URLSearchParams(location.search).get("to")?.trim().slice(0, 60) || ""; // không có ?to= → thiệp gửi chung
   const start = new Date(C.start);
   const end = C.end ? new Date(C.end) : new Date(+start + 3 * 36e5);
   const pad = (n) => String(n).padStart(2, "0");
@@ -11,7 +11,8 @@
   /* ---------- Đổ dữ liệu (textContent → an toàn với ?to=) ---------- */
   const data = { ...C, guest };
   document.querySelectorAll("[data-k]").forEach((el) => (el.textContent = data[el.dataset.k] ?? ""));
-  if (guest !== "bạn") document.title = `${guest} ơi, mời bạn dự lễ tốt nghiệp của ${C.name}`;
+  if (!guest) document.querySelectorAll('[data-k="guest"]').forEach((el) => el.remove());
+  if (guest) document.title = `${guest} ơi, mời bạn dự lễ tốt nghiệp của ${C.name}`;
 
   const ring = $("#ringText");
   ring.textContent = `Graduation Day ✦ Class of ${C.classOf} ✦ Congratulations ✦ `;
@@ -342,7 +343,7 @@
         rsvpBtn.disabled = true; say("Đang gửi xác nhận…");
         try {
           const res = await (await fetch(C.rsvpUrl, { // body text/plain → không preflight CORS với Apps Script
-            method: "POST", body: JSON.stringify({ token: r.access_token, invited: guest === "bạn" ? "" : guest }),
+            method: "POST", body: JSON.stringify({ token: r.access_token, invited: guest }),
           })).json();
           if (!res.ok) throw new Error(res.error);
           confirmed(res.name);
